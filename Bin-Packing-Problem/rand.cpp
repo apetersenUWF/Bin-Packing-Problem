@@ -1,11 +1,11 @@
 /***************************************************************
   Ayden Petersen
   rand.cpp
-  Project 3
+  Project 4
 
   This file contains the necessary logic to update array s with
-  the next permutation, and to generate a random float on a defined
-  interval
+  the next permutation, and to generate a random float or int 
+  on a defined interval
 ***************************************************************/
 #include "rand.hpp"
 #include <random>

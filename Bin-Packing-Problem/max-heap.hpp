@@ -1,11 +1,20 @@
-//A max-heap template designed to work for any node with copy constructor, = operaotr overload,
-//assignMaximumPriority(), and > operator overload
+/***************************************************************
+Ayden Petersen
+max-heap.hpp
+Project 4
+
+This is a max heap class template designed to work for any node class
+with operator overloading and maxPriority member for the sentinel node.
+
+The purpose of this class is to efficiently find the max size items
+in the offline solutions to the bin packing problem
+*/
 
 #ifndef MAXHEAP_HPP
 #define MAXHEAP_HPP
 #include <vector>
 #include "node.hpp"
-const int DEFAULT_MAXHEAP_CAPACITY = 200;//defines the default size for the min heap
+const int DEFAULT_MAXHEAP_CAPACITY = 200;//defines the default size for the max heap
 template <typename T>
 class MaxHeap{
   int size;//holds the effective size
@@ -27,7 +36,7 @@ class MaxHeap{
   int getSize() const;//returns effective size of the heap
   float retrieve() const;//returns the highest priority item
 };
-///////////////////////////////////////////////////////CONSTRUCTORS/DESTRUCTORS
+/*CONSTRUCTORS/DESTRUCTOR******************************************************************************/
   template <typename T>
   MaxHeap<T>::MaxHeap(){
     size = 1;//size starts as 1 because 0th node is a sentinel
@@ -49,7 +58,7 @@ class MaxHeap{
   template <typename T>
   MaxHeap<T>::~MaxHeap() {for (int i = 0; i < size; i++) delete priorityQueue.at(i);}
 
-///////////////////////////////////////////////////////DATA STRUCTURE LOGICS
+/*LOGIC******************************************************************************/
   template <typename T>
   T* MaxHeap<T>::serve() {//removes the front item from the PQ, fixes the structure, and returns that item
     if (size == 1) return nullptr;//PQ empty
@@ -112,7 +121,7 @@ class MaxHeap{
     }
   }
 
-///////////////////////////////////////////////////////HELPERS
+/*HELPERS******************************************************************************/
   template <typename T>
   int MaxHeap<T>::parent(int index) const {return index/2;}
 
@@ -127,7 +136,7 @@ class MaxHeap{
     std::swap(priorityQueue.at(indexA), priorityQueue.at(indexB));
   }
 
-///////////////////////////////////////////////////////GETTERS
+/*GETTERS******************************************************************************/
   template <typename T>
   bool MaxHeap<T>::isEmpty() const {
     if (size <= 1) return true;//1 based 

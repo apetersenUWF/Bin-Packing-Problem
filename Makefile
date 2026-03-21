@@ -2,7 +2,7 @@ CXX = g++
 
 CXXFLAGS = -std=c++11 -Wall
 
-OBJS = bin.o main.o rand.o
+OBJS = bin.o main.o rand.o brute-force.o
 
 EXEC = run
 
@@ -12,8 +12,9 @@ run: $(OBJS)
 				$(CXX) $(CXXFLAGS) -o $@ $(OBJS)
 
 bin.o : bin.hpp
-main.o : node.hpp brute-force.hpp bin.hpp
+main.o : node.hpp brute-force.hpp bin.hpp brute-force.hpp
 rand.o : rand.hpp
+brute-force.o : brute-force.hpp
 
 clean :
 				rm -f $(EXEC) $(TEXT_FILES) $(OBJS)

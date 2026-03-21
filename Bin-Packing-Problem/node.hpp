@@ -19,9 +19,9 @@ class PriorityNode {
     public:
     PriorityNode();
     PriorityNode(P priority);
-    PriorityNode(const PriorityNode* rhs);
-    void operator=(PriorityNode* rhs);
-    bool operator>(PriorityNode* rhs);
+    PriorityNode(const PriorityNode& rhs);
+    void operator=(const PriorityNode& rhs);
+    bool operator>(const PriorityNode& rhs) const;
     void assignMaximumPriority();
     void setPriority(P priority);
     P getPriority() const;
@@ -37,23 +37,21 @@ class PriorityNode {
     }
 
     template <typename P>
-    PriorityNode<P>::PriorityNode(const PriorityNode* rhs) {
-        priority = rhs->getPriority();
-        maxPriority = rhs->isMax();
+    PriorityNode<P>::PriorityNode(const PriorityNode& rhs) {
+        priority = rhs.getPriority();
+        maxPriority = rhs.isMax();
     }
 /*OPERATORS******************************************************************************/
     template <typename P>
-    void PriorityNode<P>::operator=(PriorityNode* rhs) {
-        priority = rhs->getPriority();
-        maxPriority = rhs->isMax();
+    void PriorityNode<P>::operator=(const PriorityNode& rhs){
+        priority = rhs.getPriority();
+        maxPriority = rhs.isMax();
     }
 
     template <typename P>
-    bool PriorityNode<P>::operator>(PriorityNode* rhs) {
-        if (rhs->isMax()) return false;//node can never be greater than a node with max priority
-        //if both nodes are max priority, which should never happen since its only for the sentinel, the right side is ruled higher
-        if (maxPriority) return true;
-        return (priority > rhs->getPriority());
+    bool PriorityNode<P>::operator>(const PriorityNode& rhs) const {
+        if (rhs.isMax()) return false;//node can never be greater than a node with max priority
+        return (priority > rhs.getPriority());
     }
 /*GETTERS/SETTERS******************************************************************************/
     template <typename P>

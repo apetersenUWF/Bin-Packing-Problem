@@ -40,10 +40,10 @@ class MaxHeap{
   template <typename T>
   MaxHeap<T>::MaxHeap(){
     size = 1;//size starts as 1 because 0th node is a sentinel
-    capacity = DEFAULT_MINHEAP_CAPACITY;
+    capacity = DEFAULT_MAXHEAP_CAPACITY;
     priorityQueue.assign(capacity, nullptr);
     priorityQueue.at(0) = new T();//sentinel
-    priorityQueue.at(0)->assignMaxPriority();//sentinel always equal to max priority
+    priorityQueue.at(0)->assignMaximumPriority();//sentinel always equal to max priority
   }
 
   template <typename T>
@@ -52,7 +52,7 @@ class MaxHeap{
     this->capacity = capacity;
     priorityQueue.assign(capacity, nullptr);
     priorityQueue.at(0) = new T();
-    priorityQueue.at(0)->assignMaxPriority(0);
+    priorityQueue.at(0)->assignMaximumPriority(0);
   }
 
   template <typename T>
@@ -62,7 +62,7 @@ class MaxHeap{
   template <typename T>
   T* MaxHeap<T>::serve() {//removes the front item from the PQ, fixes the structure, and returns that item
     if (size == 1) return nullptr;//PQ empty
-    T* served = new T(priorityQueue.at(1));//saves the item pointer for returning
+    T* served = new T(*priorityQueue.at(1));//saves the item pointer for returning
     delete priorityQueue.at(1);
     priorityQueue.at(1) = priorityQueue.at(size-1);//move last element to the top and percolate down
     size--;
@@ -85,7 +85,7 @@ class MaxHeap{
     T* curr = priorityQueue.at(index);
     T* currParent = priorityQueue.at(parentIndex);
 
-    while (curr > currParent){//curr can never be greter than element 0
+    while (*curr > *currParent){//curr can never be greter than element 0
       swap(index, parentIndex);//keep swapping while parents have lower priority
       index = parentIndex;
       parentIndex = parent(index);
@@ -95,21 +95,20 @@ class MaxHeap{
 
   template <typename T>
   void MaxHeap<T>::percolateDown(int index) {
-    curr = priorityQueue.at(index);
-
+    T* curr = priorityQueue.at(index);
     while (index <= size/2) {//nodes below size/2 have children
       //keep swapping while a child has higher priority
       int lChildIndex = LChild(index);
-      lChild = priorityQueue.at(lChildIndex);
+      T* lChild = priorityQueue.at(lChildIndex);
       if (index * 2 == size) {//node only has left child
-        if (lChild > curr) swap(index, lChildIndex);
+        if (*lChild > *curr) swap(index, lChildIndex);
         return;
       }
       else {//node has 2 children
         int rChildIndex = RChild(index);
-        rChild = priorityQueue.at(rChildIndex);
-        if (curr > lChild && curr > rChild) return;//curr has higher priority than its children
-        if (lChild > rChild) {//left child has highest priority among the 3
+        T* rChild = priorityQueue.at(rChildIndex);
+        if (*curr > *lChild && *curr > *rChild) return;//curr has higher priority than its children
+        if (*lChild > *rChild) {//left child has highest priority among the 3
           swap(index, lChildIndex);
           index = lChildIndex;
         }

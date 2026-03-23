@@ -4,11 +4,12 @@
 #include "bin.hpp"
 class BP_BF{
   float* items;
+  int* s;//indices to be permuted
   int numItems;
   public:
   BP_BF();
   BP_BF(float* items, int numItems);
   ~BP_BF();
-  std::vector<Bin*> run();
+  std::vector<Bin> run();
 };
 #endif

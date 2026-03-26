@@ -29,6 +29,7 @@ class MaxHeap{
   public:
   MaxHeap();
   MaxHeap(int capacity);
+  MaxHeap(std::vector<T*> items, int n);
   ~MaxHeap();
   bool insert(T* item);//inserts an item into the maxHeap
   T* serve();//pops the top item and returns it
@@ -53,6 +54,21 @@ class MaxHeap{
     priorityQueue.assign(capacity, nullptr);
     priorityQueue.at(0) = new T();
     priorityQueue.at(0)->assignMaximumPriority(0);
+  }
+
+  template <typename T>
+  MaxHeap<T>::MaxHeap(std::vector<T*> items, int n) {
+    size = 1;
+    capacity = n + 1;
+    priorityQueue.assign(capacity, nullptr);
+    priorityQueue.at(0) = new T();
+    priorityQueue.at(0)->assignMaximumPriority(0);
+    for (int i = 0; i < n; i++) {
+      priorityQueue.push_back(items[i]);
+      size++;
+    }
+    int lastParentIndex = (size-1)/2;
+    for (int i = lastParentIndex; i > 0; i--) percolateDown(i);
   }
 
   template <typename T>

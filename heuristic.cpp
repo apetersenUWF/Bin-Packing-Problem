@@ -45,6 +45,7 @@
                 if (j == bins.size() - 1) {//if it didnt fit in any bins
                     curr = Bin(items[i]);//make a new bin with the item
                     bins.push_back(curr);//and add it to bins
+                    break;
                 }
             }
         }
@@ -97,4 +98,4 @@
 
 /*OFFLINE-ALGORITHMS******************************************************************************/
     std::vector<Bin> BP_Heuristic::runOfflineFF() {/*TODO*/}
-    std::vector<Bin> BP_Heuristic::runOnlineBF() {/*TODO*/}
+    std::vector<Bin> BP_Heuristic::runOfflineBF() {/*TODO*/}

@@ -1,6 +1,6 @@
 #ifndef HEURISTIC_HPP
 #define HEURISTIC_HPP
-#include <bin.hpp>
+#include "bin.hpp"
 #include <vector>
 class BP_Heuristic{
     float* items;
@@ -14,6 +14,6 @@ class BP_Heuristic{
     std::vector<Bin> runOnlineBF();
 
     std::vector<Bin> runOfflineFF();
-    std::vector<Bin> runOnlineBF();
+    std::vector<Bin> runOfflineBF();
 };
 #endif

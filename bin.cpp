@@ -34,7 +34,7 @@
     float Bin::getSize() const {return size;}
 
     void Bin::print() {
-        for (auto i = 0; i < items.size(); i++) {
+        for (long unsigned int i = 0; i < items.size(); i++) {
             if (i == items.size() - 1) {//if last item, dont add comma, end the line
                 std::cout << items[i] << std::endl;
             }

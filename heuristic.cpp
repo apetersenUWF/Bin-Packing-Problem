@@ -16,6 +16,8 @@
 
 ***************************************************************/
 #include "heuristic.hpp"
+#include "max-heap.hpp"
+#include "node.hpp"
 
 /*CONSTRUCTORS/DESTRUCTOR******************************************************************************/
     BP_Heuristic::BP_Heuristic(): items(nullptr), numItems(0) {}
@@ -37,7 +39,7 @@
         Bin curr;
         bins.push_back(curr);
         for (int i = 0; i < numItems; i++) {//for each item in the list
-            for (int j = 0; j < bins.size(); j++) {//scan through all the available bins for one that fits
+            for (long unsigned int j = 0; j < bins.size(); j++) {//scan through all the available bins for one that fits
                 if (bins[j].fit(items[i]) >= 0) {//if a bin that fits the item is located
                     bins[j].insert(items[i]);//insert there
                     break;
@@ -78,7 +80,7 @@
         for (int i = 0; i < numItems; i++) {//for each item in the list
             int bestFitIndex = -1;
             float bestFit = 1;
-            for (int j = 0; j < bins.size(); j++) {//scan through all the available bins for the on that fits best
+            for (long unsigned int j = 0; j < bins.size(); j++) {//scan through all the available bins for the on that fits best
                 float fit = bins[j].fit(items[i]);//remaining room after fitting the item
                 if ((fit < bestFit) && fit >= 0) {//if a bin that fits the item is lower than all other bins so far
                     bestFitIndex = j;//save that index and value
@@ -97,5 +99,30 @@
     }
 
 /*OFFLINE-ALGORITHMS******************************************************************************/
-    std::vector<Bin> BP_Heuristic::runOfflineFF() {/*TODO*/}
+    std::vector<Bin> BP_Heuristic::runOfflineFF() {
+        std::vector<PriorityNode<float>> list;//vector of nodes to create the max heap
+        for (int i = 0; i < numItems; i++) {//create a node for each item
+            PriorityNode<float> curr = PriorityNode<float>(items[i]);
+            list.push_back(curr);
+        }
+        MaxHeap<PriorityNode<float>> maxHeap(list, numItems);//create a max heap to easily find the biggest item
+        std::vector<Bin> bins;
+        Bin curr = Bin();
+        bins.push_back(curr);
+        for (int i = 0; i < numItems; i++) {
+            float item = (maxHeap.serve()).getPriority();
+            for (long unsigned int j = 0; j < bins.size(); j++) {
+                if (bins[j].fit(item) >= 0) {
+                    bins[j].insert(item);
+                    break;
+                }
+                if (j == bins.size() - 1) {//if it didnt fit in any bins
+                    curr = Bin(item);//make a new bin with the item
+                    bins.push_back(curr);//and add it to bins
+                    break;
+                }
+            }
+        }
+        return bins;
+    }
     std::vector<Bin> BP_Heuristic::runOfflineBF() {/*TODO*/}

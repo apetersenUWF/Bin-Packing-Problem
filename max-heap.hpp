@@ -13,7 +13,7 @@ in the offline solutions to the bin packing problem
 #ifndef MAXHEAP_HPP
 #define MAXHEAP_HPP
 #include <vector>
-#include <iostream> //for testing
+//#include <iostream> //for testing
 #include "node.hpp"
 const int DEFAULT_MAXHEAP_CAPACITY = 200;//defines the default size for the max heap
 template <typename T>
@@ -36,7 +36,7 @@ class MaxHeap{
   bool isEmpty() const;//checks if the heap is empty
   int getSize() const;//returns effective size of the heap
   T retrieve() const;//returns the highest priority item
-  void print() const; //for testing
+  //void print() const; //for testing
 };
 /*CONSTRUCTORS/DESTRUCTOR******************************************************************************/
   template <typename T>
@@ -78,7 +78,7 @@ class MaxHeap{
   template <typename T>
   T MaxHeap<T>::serve() {//removes the front item from the PQ, fixes the structure, and returns that item
     if (size == 1) return T();//PQ empty
-    T served = T(priorityQueue.at(1));//saves the item pointer for returning
+    T served = priorityQueue.at(1);//saves the item pointer for returning
     priorityQueue.at(1) = priorityQueue.at(size-1);//move last element to the top and percolate down
     size--;
     percolateDown(1);
@@ -111,11 +111,11 @@ class MaxHeap{
   template <typename T>
   void MaxHeap<T>::percolateDown(int index) {
     T curr = priorityQueue.at(index);
-    while (index <= size/2) {//nodes below size/2 have children
+    while (index <= (size-1)/2) {//nodes below size/2 have children
       //keep swapping while a child has higher priority
       int lChildIndex = LChild(index);
       T lChild = priorityQueue.at(lChildIndex);
-      if (index * 2 == size) {//node only has left child
+      if ((index * 2 + 1) == size) {//node only has left child
         if (lChild > curr) swap(index, lChildIndex);
         return;
       }
@@ -163,10 +163,10 @@ class MaxHeap{
   template <typename T>
   int MaxHeap<T>::getSize() const {return size;}
   
-  template <typename T>
+  /*template <typename T>
   void MaxHeap<T>::print() const {
     for (int i = 0; i < size; i++) {
       std::cout << priorityQueue[i].getPriority() << std::endl;
     }
-  }
+  }*/
 #endif

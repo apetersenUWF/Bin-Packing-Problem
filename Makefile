@@ -12,10 +12,10 @@ run: $(OBJS)
 				$(CXX) $(CXXFLAGS) -o $@ $(OBJS)
 
 bin.o : bin.hpp
-main.o : node.hpp brute-force.hpp bin.hpp brute-force.hpp
+main.o : node.hpp brute-force.hpp bin.hpp heuristic.hpp max-heap.hpp
 rand.o : rand.hpp
-brute-force.o : brute-force.hpp
-heuristic.o : heuristic.hpp
+brute-force.o : brute-force.hpp rand.hpp
+heuristic.o : heuristic.hpp max-heap.hpp node.hpp
 
 clean :
 				rm -f $(EXEC) $(TEXT_FILES) $(OBJS)

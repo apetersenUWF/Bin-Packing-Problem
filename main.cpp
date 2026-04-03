@@ -1,52 +1,9 @@
-#include "node.hpp"
-#include "max-heap.hpp"
-#include "bin.hpp"
-#include "rand.hpp"
-#include "brute-force.hpp"
-#include "heuristic.hpp"
-#include <iostream>
+#include "menu.hpp"
 
 int main() {
-    int numItems = 12;
-    float items[numItems] = {0.41, 0.34, 0.245, 0.19, 0.59, 0.755, 0.33, 0.22, 0.51, 0.339, 0.81, 0.37};
-        std::vector<PriorityNode<float>> list;//vector of nodes to create the max heap
-        for (int i = 0; i < numItems; i++) {//create a node for each item
-            PriorityNode<float> curr = PriorityNode<float>(items[i]);
-            list.push_back(curr);
-        }
-    MaxHeap<PriorityNode<float>>* maxHeap = new MaxHeap<PriorityNode<float>>(list, numItems);
-    BP_Heuristic* heuristic = new BP_Heuristic(items, numItems);
-    BP_BF* solver = new BP_BF(items, numItems);
-    std::vector<Bin> result = solver->run();
-    std::cout << "Brute-Force Results: " << std::endl;
-    for (long unsigned int i = 0; i < result.size(); i++) {
-        std::cout << "b" << i << ": ";
-        result[i].print();
-    }
-    std::cout << "Online First Fit Results: " << std::endl;
-    result = heuristic->runOnlineFF();
-    for (long unsigned int i = 0; i < result.size(); i++) {
-        std::cout << "b" << i << ": ";
-        result[i].print();
-    }
-    std::cout << "Online Best Fit Results: " << std::endl;
-    result = heuristic->runOnlineBF();
-    for (long unsigned int i = 0; i < result.size(); i++) {
-        std::cout << "b" << i << ": ";
-        result[i].print();
-    }
-    std::cout << "Online Next Fit Results: " << std::endl;
-    result = heuristic->runOnlineNF();
-    for (long unsigned int i = 0; i < result.size(); i++) {
-        std::cout << "b" << i << ": ";
-        result[i].print();
-    }
-    std::cout << "Offline First Fit Results: " << std::endl;
-    result = heuristic->runOfflineFF();
-    for (long unsigned int i = 0; i < result.size(); i++) {
-        std::cout << "b" << i << ": ";
-        result[i].print();
-    }
-    delete solver;
+    Menu* menu = new Menu;
+    //if(menu->loadItems("items.txt")) menu->run();
+    menu->loadRandomItemFile(100000);
+    if(menu->loadItems(RANDOM_ITEM_FILE)) menu->run();
     return 0;
 }

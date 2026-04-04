@@ -6,6 +6,7 @@ const std::string RANDOM_ITEM_FILE = "randomitems.txt";
 class Menu{
     float* items;
     int numItems;
+    int mathematicalMinimumBins;//the mathematic minimum number of possible bins = ROUNDUP(total item weight)
     bool bruteForceApplicable;
     void printResult(std::vector<Bin> result);
     public:

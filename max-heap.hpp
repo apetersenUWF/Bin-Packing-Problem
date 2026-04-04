@@ -8,7 +8,7 @@ with operator overloading and maxPriority member for the sentinel node.
 
 The purpose of this class is to efficiently find the max size items
 in the offline solutions to the bin packing problem
-*/
+***************************************************************/
 
 #ifndef MAXHEAP_HPP
 #define MAXHEAP_HPP

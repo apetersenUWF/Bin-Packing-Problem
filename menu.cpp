@@ -1,10 +1,25 @@
+/***************************************************************
+ Ayden Petersen
+menu.cpp
+Project 4
+
+This file contains the Menu class function definitions
+necessary to load the items for the bin packing problem, perform
+the brute-force and heuristic algorithms, and report the results to
+the terminal.
+
+The bruteForceApplicable variable designates whether the problem is of
+a size that can be solved in a reasonable amount of time with the permutation
+algorithm. If the number of items is over 12 this will be changed to false
+and only the heuristics will be performed
+***************************************************************/
 #include "menu.hpp"
 #include "heuristic.hpp"
 #include "brute-force.hpp"
 #include "rand.hpp"
 #include <fstream>
 #include <iostream>
-    Menu::Menu(): items(nullptr), numItems(0), bruteForceApplicable(false) {}
+    Menu::Menu(): items(nullptr), numItems(0), mathematicalMinimumBins(0), bruteForceApplicable(false) {}
     Menu::~Menu() {delete [] items;}
 
     bool Menu::loadItems(std::string filename) {
@@ -24,7 +39,12 @@
         inFS.close();
         numItems = validItems.size();
         items = new float[numItems];
-        for (int i = 0; i < numItems; i++) items[i] = validItems[i];
+        float total = 0.0;
+        for (int i = 0; i < numItems; i++) {
+            items[i] = validItems[i];
+            total += items[i];
+        }
+        mathematicalMinimumBins = static_cast<int>(total+0.99999);
         if (numItems > 0 && numItems < 13) bruteForceApplicable = true;
         return true;
     }
@@ -62,6 +82,8 @@
         std::cout << "Policy" << std::endl;
         std::cout << std::endl;
         std::cout << "Total Bins Used" << std::endl;
+        std::cout << "Mathematic Optimal" << std::endl;
+        std::cout << mathematicalMinimumBins << std::endl;
         if (bruteForceApplicable) {
         std::cout << "Optimal Solution" << std::endl;
         std::cout << optimal.size() << std::endl;

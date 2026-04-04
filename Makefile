@@ -6,7 +6,7 @@ OBJS = bin.o main.o rand.o brute-force.o heuristic.o menu.o
 
 EXEC = run
 
-TEXT_FILES =
+TEXT_FILES = randomitems.txt
 
 run: $(OBJS)
 				$(CXX) $(CXXFLAGS) -o $@ $(OBJS)

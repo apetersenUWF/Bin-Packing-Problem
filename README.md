@@ -41,21 +41,21 @@ display the results automatically. If the file used has a number of items < 13, 
 otherwise only the heurisitcs will execute. In the terminal the program will display a table summarizing the results
 that will look similar to this:
 
-Policy
+Policy  
 
-Total Bins Used
-Mathematic Optimal
-x
-Optimal Solution
-x
+Total Bins Used  
+Mathematic Optimal  
+x  
+Optimal Solution  
+x  
 
-Online Algorithm
-First Fit (x)
-Next Fit (x)
-Best Fit (x)
-Offline Algorithm
-First Fit (x)
-Best Fit (x)
+Online Algorithm  
+First Fit (x)  
+Next Fit (x)  
+Best Fit (x)  
+Offline Algorithm  
+First Fit (x)  
+Best Fit (x)  
 
 The mathematic optimal is calculated as the sum of the total item weights, rounded up to the nearest integer.
 The optimal solution is the result found by the brute force, this will not be displayed for n larger than 12.
